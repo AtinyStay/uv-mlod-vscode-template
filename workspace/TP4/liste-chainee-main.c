@@ -11,7 +11,15 @@ int main(void){
 	l = NULL;
 	printf("estVide(l) = %s\n",estVide(l)?"TRUE":"FALSE");
 
+	l = creer(6);
+	printf("estVide(l) = %s\n",estVide(l)?"TRUE":"FALSE");
+
+	printf("%i \n",l->val);
 	l = ajoutTete(1,l);
+	printf("%i \n",l->val);
+
+
+/*
 	l = ajoutTete(2,l);
 	l = ajoutTete(4,l);
 	l = ajoutTete(1,l);
@@ -78,6 +86,6 @@ int main(void){
 	afficheListe_r(l);
 
 	detruire_r(l);
-
+*/
 	return EXIT_SUCCESS;
 }
