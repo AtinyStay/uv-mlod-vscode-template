@@ -14,6 +14,7 @@ typedef struct cellule_s Cellule;
 typedef Cellule* Liste;
 
 // retourne vrai si l est vide et faux sinon
+// l est un pointeur donc vide si adresse vaut NULL
 bool estVide(Liste l);
 
 // créer une liste d'un seul élément contenant la valeur v
@@ -34,7 +35,7 @@ void afficheListe_i(Liste l);
 // version recursive
 void afficheListe_r(Liste l);
 
-void detruireElement(Element e);
+void detruireElement(Element e, Liste l);
 
 // Détruit tous les éléments de la liste l
 // version itérative

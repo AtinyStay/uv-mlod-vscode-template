@@ -44,31 +44,62 @@ void afficheListe_i(Liste l) {
 
 // version recursive
 void afficheListe_r(Liste l) {
-	TODO;
+	if(!estVide(l)){
+		afficheElement(l->val);
+		afficheListe_r(l->suiv);
+	}
 }
 
-void detruireElement(Element e) {}
+void detruireElement(Element e, Liste l) {
+	while(!estVide(l)) {
+		Liste p = l->suiv;
+		if(p->val == e) {
+			p = p->suiv;
+			free(p);
+			l = p;
+		}	
+		l=l->suiv;
+	}
+}
 
 // Détruit tous les éléments de la liste l
 // version itérative
 void detruire_i(Liste l) {
-	TODO;
+	Liste p = l;
+	while(!estVide(p)) {
+		free(p);
+		p=p->suiv;
+	};
 }
 
 // version récursive
 void detruire_r(Liste l) {
-	TODO;
+	if(!estVide(l))
+		free(l);
+		detruire_r(l->suiv);
 }
 
 // retourne la liste dans laquelle l'élément v a été ajouté en fin
 // version itérative
 Liste ajoutFin_i(Element v, Liste l) {
-	return TODO;
+	Liste fin = creer(v);
+	while(!estVide(l)) {
+		if(estVide(l->suiv)) {
+			l->suiv = fin;
+			return l;
+		}			
+		l = l->suiv; 
+	}
+	return fin;
 }
 
 // version recursive
 Liste ajoutFin_r(Element v, Liste l) {
-	return TODO;
+	if(!estVide(l->suiv))
+		ajoutFin_r(v,l->suiv);
+	else
+		l->suiv = creer(v);
+	return l;
 }
 
 // compare deux elements
@@ -79,12 +110,21 @@ bool equalsElement(Element e1, Element e2){
 // Retourne un pointeur sur l'élément de la liste l contenant la valeur v ou NULL
 // version itérative
 Liste cherche_i(Element v,Liste l) {
-	return TODO;
+	while(!estVide(l)) {
+		if(equalsElement(v, l->val))
+			return l;
+		l=l->suiv;
+	}
+	return NULL;
 }
 
 // version récursive
 Liste cherche_r(Element v,Liste l) {
-	return TODO;
+	if(equalsElement(v, l->val))
+		return l;
+	if(l->suiv != NULL )
+		return cherche_r(v, l->suiv);
+	return NULL;
 }
 
 // Retourne la liste modifiée dans la laquelle le premier élément ayant la valeur v a été supprimé

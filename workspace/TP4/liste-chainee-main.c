@@ -18,8 +18,6 @@ int main(void){
 	l = ajoutTete(1,l);
 	printf("%i \n",l->val);
 
-
-/*
 	l = ajoutTete(2,l);
 	l = ajoutTete(4,l);
 	l = ajoutTete(1,l);
@@ -30,7 +28,11 @@ int main(void){
 	l = ajoutTete(1,l);
 
 	afficheListe_i(l);
-
+	//afficheListe_r(l);
+	//detruire_i(l);
+	detruireElement(5,l);
+	afficheListe_i(l);
+/*
 	ajoutFin_r(99,l);
 	afficheListe_i(l);
 
@@ -60,6 +62,7 @@ int main(void){
 		afficheElement(p->val);
 		printf("\n");
 	}
+/*
 
 	printf("retirePremier_i(1)   : ");
 	l = retirePremier_i(1,l);
