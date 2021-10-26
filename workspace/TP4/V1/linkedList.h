@@ -2,7 +2,11 @@
 
 #include <stdbool.h>
 
-typedef int Element;
+// ============
+// Types
+// ============
+
+typedef void* Element;
 
 struct cellule_s {
 	Element val;
@@ -10,11 +14,21 @@ struct cellule_s {
 };
 
 typedef struct cellule_s Cellule;
-
 typedef Cellule* Liste;
 
+// ============
+// External Functions
+// ============
+
+extern void afficheElement(Element e);
+extern void detruireElement(Element e);
+extern bool equalsElement(Element e1, Element e2);
+
+// ============
+// Exported Functions
+// ============
+
 // retourne vrai si l est vide et faux sinon
-// l est un pointeur donc vide si adresse vaut NULL
 bool estVide(Liste l);
 
 // créer une liste d'un seul élément contenant la valeur v
@@ -35,7 +49,7 @@ void afficheListe_i(Liste l);
 // version recursive
 void afficheListe_r(Liste l);
 
-void detruireElement(Element e, Liste l);
+
 
 // Détruit tous les éléments de la liste l
 // version itérative

@@ -1,4 +1,4 @@
-#include "liste-chainee.h"
+#include "linkedList.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -24,9 +24,6 @@ Liste ajoutTete(Element v, Liste l) {
 	return n;
 }
 
-void afficheElement(Element e) {
-	printf("%i ",e);
-}
 
 // affiche tous les éléments de la liste l
 // Attention, cette fonction doit être indépendante du type des éléments de la liste
@@ -34,10 +31,9 @@ void afficheElement(Element e) {
 // Attention la liste peut être vide !
 // version itérative
 void afficheListe_i(Liste l) {
-	Liste p = l;
-	while(!estVide(p)) {
-		afficheElement(p->val);
-		p=p->suiv;
+	while(!estVide(l)) {
+		afficheElement(l->val);
+		l=l->suiv;
 	}
 	printf("\n");
 }
@@ -47,50 +43,44 @@ void afficheListe_r(Liste l) {
 	if(!estVide(l)){
 		afficheElement(l->val);
 		afficheListe_r(l->suiv);
-	}
+	} else
+	printf("\n"); 
 }
 
-void detruireElement(Element e, Liste l) {
-	while(!estVide(l)) {
-		Liste p = l->suiv;
-		if(p->val == e) {
-			p = p->suiv;
-			free(p);
-			l = p;
-		}	
-		l=l->suiv;
-	}
-}
 
 // Détruit tous les éléments de la liste l
 // version itérative
 void detruire_i(Liste l) {
-	Liste p = l;
-	while(!estVide(p)) {
-		free(p);
-		p=p->suiv;
-	};
+	Liste temp;
+	while(!estVide(l)) {
+		temp = l;
+		l = l->suiv;
+		detruireElement(temp->val);
+		free(temp);
+	}
 }
 
 // version récursive
 void detruire_r(Liste l) {
-	if(!estVide(l))
-		free(l);
+	if(!estVide(l)) {
 		detruire_r(l->suiv);
+		detruireElement(l->val);
+		free(l);
+	}	
 }
 
 // retourne la liste dans laquelle l'élément v a été ajouté en fin
 // version itérative
 Liste ajoutFin_i(Element v, Liste l) {
 	Liste fin = creer(v);
-	while(!estVide(l)) {
-		if(estVide(l->suiv)) {
-			l->suiv = fin;
-			return l;
-		}			
+	if(estVide(l)) 
+		return fin;
+	while(!estVide(l->suiv)) {			
 		l = l->suiv; 
 	}
-	return fin;
+	// l->suiv == NULL
+	l->suiv = fin; 
+	return l;
 }
 
 // version recursive
@@ -102,47 +92,84 @@ Liste ajoutFin_r(Element v, Liste l) {
 	return l;
 }
 
-// compare deux elements
-bool equalsElement(Element e1, Element e2){
-	return e1 == e2;
-}
-
 // Retourne un pointeur sur l'élément de la liste l contenant la valeur v ou NULL
 // version itérative
 Liste cherche_i(Element v,Liste l) {
-	while(!estVide(l)) {
-		if(equalsElement(v, l->val))
-			return l;
+	while(!estVide(l) && !equalsElement(v, l->val)) {
 		l=l->suiv;
 	}
-	return NULL;
+	// not(A && B) = not(A) || not(B)
+	// l == NULL || l->val == v
+	return l;
 }
 
 // version récursive
 Liste cherche_r(Element v,Liste l) {
+	if(estVide(l))
+		return l;
 	if(equalsElement(v, l->val))
 		return l;
-	if(l->suiv != NULL )
+	else
 		return cherche_r(v, l->suiv);
-	return NULL;
 }
 
 // Retourne la liste modifiée dans la laquelle le premier élément ayant la valeur v a été supprimé
 // ne fait rien si aucun élément possède cette valeur
 // version itérative
 Liste retirePremier_i(Element v, Liste l) {
-	return TODO;
+	Liste p, precedent;
+	if(estVide(l)) // cas où la liste est vide
+		return l;
+
+	if(equalsElement(l->val, v)) {
+		p = l->suiv;
+		l->suiv = NULL; //pcq liste chainée
+		detruire_r(l);
+		return p;
+	} // cas où la valeur qu'on cherche est dans la première cellule
+			
+	//pour les autres cas
+	precedent = l;
+	p = l->suiv;
+	while(!estVide(p) && !equalsElement(p->val, v)) {
+		precedent = p;
+		p = p->suiv;
+	}
+
+	if(!estVide(p)) {
+		//on a trouvé v
+		precedent->suiv = p->suiv;
+		p->suiv = NULL;
+		detruire_r(p);
+	}
+	return l;
 }
 
 
 // version recursive
 Liste retirePremier_r(Element v, Liste l) {
-	return TODO;
+	if(estVide(l)) 
+		return l;
+
+	if(equalsElement(l->val, v)) {
+		Liste p = l->suiv;
+		l->suiv = NULL; //pcq liste chainée
+		detruire_r(l);
+		return p;
+	}
+
+	l->suiv = retirePremier_r(v, l->suiv);
+	return l;
+		
 }
 
 
 void afficheEnvers_r(Liste l) {
-	TODO;
+	while(!estVide(l)) {
+		l = l->suiv;
+		afficheEnvers_r(l);
+		afficheElement(l->val);
+	}
 }
 
 
