@@ -12,8 +12,10 @@ bool estVide(Liste l) {
 // créer une liste d'un seul élément contenant la valeur v
 // liste est un pointeur
 Liste creer(Element v) {
-    Liste liste = (Liste *)calloc(1,sizeof(Cellule));
+    Liste liste;
+	liste = malloc(sizeof(Cellule));
     liste->val = v;
+	liste->suiv = NULL;
 	return liste;
 }
 

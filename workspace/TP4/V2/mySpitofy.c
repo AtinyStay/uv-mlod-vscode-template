@@ -9,33 +9,14 @@
 #include <errno.h>
 #define MAX_BUFFER_SIZE 256
 
-
-// ============
-// Definitions of external functions
-// ============
-
-/*
-void afficheElement(Element e) {
-	printf("%s ",(char*)e);
-}
-
-void detruireElement(Element e) {}
-
-// compare deux elements
-bool equalsElement(Element e1, Element e2){
-	return strcmp((char *)e1,(char *)e2)==0;
-}
-
-*/
-
 // ============
 // main
 // ============
 
 int main(void){
-
 	afficheCsv("music.csv");
-	creerMusiqueListe("music.csv");
+	Liste liste;
+	liste = creerMusiqueListe("music.csv");
 
 
 	
@@ -47,22 +28,10 @@ int main(void){
 
 	
 	
-	
-/*
-	l = ajoutTete("!",l);
-	l = ajoutTete("!",l);
-	l = ajoutTete("!",l);
-	l = ajoutTete("Jedi",l);
-	l = ajoutTete("est",l);
-	l = ajoutTete("un",l);
-	l = ajoutTete("Luke",l);
-*/
 
-/*
-	afficheListe_i(l);
 
-	detruire_r(l);
-*/
+	detruire_i(liste);
+
 
 	return EXIT_SUCCESS;
 }
