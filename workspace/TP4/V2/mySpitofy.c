@@ -34,20 +34,12 @@ bool equalsElement(Element e1, Element e2){
 
 int main(void){
 
-	char *copy;
-	char *champMusic;
+	char line[] = "cats,dogs,skz";
+	afficheCsv("music.csv");
+	splitLine(line);
 
-	//Lecture du fichier music.csv en récupérant les éléments de chaque ligne délimités par la virgule
-	FILE* f = fopen("music.csv","r");
-	char line[MAX_BUFFER_SIZE];
-	//boucle sur toutes les lignes du fichier
-	while(fgets(line, MAX_BUFFER_SIZE, f) != NULL) {
-		copy = strdup(line);
-		//boucle sur une ligne de fichier pour récupérer ce qu'il y a entre chaque virgule
-		while((champMusic = strsep(&copy,",")) != NULL) {
-			printf("%s\n",champMusic);
-		}
-	}
+
+	
 		
 		
 			
@@ -72,6 +64,6 @@ int main(void){
 
 	detruire_r(l);
 */
-	fclose(f);
+
 	return EXIT_SUCCESS;
 }
