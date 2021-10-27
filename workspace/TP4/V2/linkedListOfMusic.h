@@ -29,7 +29,8 @@ void afficheElement(Element e);
 void detruireElement(Element e);
 bool equalsElement(Element e1, Element e2);
 void afficheCsv(char* fileName);
-void splitLine(char* line);
+Music* creerMusique(char* line);
+Liste creerMusiqueListe(char* fileName);
 
 
 

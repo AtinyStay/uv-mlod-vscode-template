@@ -34,9 +34,8 @@ bool equalsElement(Element e1, Element e2){
 
 int main(void){
 
-	char line[] = "cats,dogs,skz";
 	afficheCsv("music.csv");
-	splitLine(line);
+	creerMusiqueListe("music.csv");
 
 
 	

@@ -56,7 +56,7 @@ bool equalsElement(Element e1, Element e2){
 	return 1;
 }
 
-//afficher le csv
+//afficher le fichier csv uniquement
 void afficheCsv(char* fileName) {
 	FILE* f = fopen(fileName,"r");
 	char line[MAX_BUFFER_SIZE];
@@ -66,11 +66,33 @@ void afficheCsv(char* fileName) {
 	fclose(f);
 }
 
-//délimiter les éléments séparés par une virgule sur une ligne
-void splitLine(char *line) {
-	char *champMusique;
+//créer une cellule de musique
+Music* creerMusique(char *line) {
+	Music *m = (Music *)calloc(1,sizeof(Music));
 	char *copy = strdup(line);
-	while((champMusique = strsep(&copy,",")) != NULL) {
-		printf("%s\n",champMusique);
+
+	//on affecte tous les champs d'une musique au bon endroit
+	m->name = strsep(&copy,",");
+	m->artist = strsep(&copy,",");
+	m->album = strsep(&copy,",");
+	m->genre = strsep(&copy,",");
+	m->discNum = atoi(strsep(&copy,","));
+	m->trackNum = atoi(strsep(&copy,","));
+	m->year = atoi(strsep(&copy,","));
+	free(copy);
+	return m;
+}
+
+//prise en compte de toutes les lignes du fichier csv
+Liste creerMusiqueListe(char* fileName) {
+	Liste listeMusique;
+	Music *uneMusique;
+	FILE* f = fopen(fileName,"r");
+	char line[MAX_BUFFER_SIZE];
+	while(fgets(line, MAX_BUFFER_SIZE, f) != NULL) {
+		uneMusique = creerMusique(line);
+		listeMusique = ajoutFin_i(uneMusique,listeMusique);
 	}
+	fclose(f);
+	return listeMusique;
 }
