@@ -24,6 +24,7 @@ ArbreBinaire creer(Element e) {
 // insere e dans a sachant que a est un arbre binaire de recherche
 // si a contient déjà un element e, ce dernier n'est pas insérer afin d'éviter les doublons
 // version itérative
+
 ArbreBinaire insere_i(ArbreBinaire a, Element e) {
 	if(estVide(a)) {
 		return creer(e);
@@ -32,36 +33,25 @@ ArbreBinaire insere_i(ArbreBinaire a, Element e) {
 	if(a->val == e)
 		return a;
 
-
 	// (a != NULL) && (a->val !=e)
-	while((!estVide(a->filsGauche)) || (!estVide(a->filsDroit))) {
-		if(a->val > e) {
-			if(!estVide(a->filsGauche))
-				a = a->filsGauche;
+	ArbreBinaire t = a;
+	while(true) {
+		if(t->val > e) {
+			if(!estVide(t->filsGauche))
+				t = t->filsGauche;
 			else
-				a->filsGauche = creer(e);
+				t->filsGauche = creer(e);
 		}
-		if(a->val < e) {
-			if(!estVide(a->filsDroit))
-				a = a->filsDroit;
+		if(t->val < e) {
+			if(!estVide(t->filsDroit))
+				t = t->filsDroit;
 			else
-				a->filsDroit = creer(e);
+				t->filsDroit = creer(e);
 		}
-		if(a->val == e)
+		if(t->val == e)
 			return a;
 	}
-	// (a->filsGauche == NULL) && (a->filsDroit == NULL)
-
-	if(a->val > e) {
-		a->filsGauche = creer(e);
-	}
-	if(a->val < e) {
-		a->filsDroit = creer(e);
-	}
-	return a;
 }
-
-	
 
 
 // insere e dans a sachant que a est un arbre binaire de recherche
@@ -98,9 +88,6 @@ int profondeur(ArbreBinaire a, Element e){
 	int profondeur = 0;
 	if(estVide(a))
 		return -1;
-
-	if()
-
 	if(a->val > e)
 		a->filsGauche = insere_r(a->filsGauche,e);
 	if(a->val < e)
