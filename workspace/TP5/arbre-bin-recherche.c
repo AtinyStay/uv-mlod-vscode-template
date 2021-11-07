@@ -135,19 +135,32 @@ int hauteur(ArbreBinaire a){
 
 // retourne le pere de elem dans l'arbre a ou NULL s'il n'existe pas
 ArbreBinaire pere(ArbreBinaire a, Element elem){
-	if(estVide(a))
+	if(estVide(a) || (a->val == elem)) //si l'élément n'a pas de père, on renvoie NULL
 		return NULL;
 	
-	if(a->val == elem)
-		return a;
-	
 	// (a != NULL) && (a->val !=e)
-	if(a->val > elem)
-		return recherche_r(a->filsGauche, elem);
-	if(a->val < elem)
-		return recherche_r(a->filsDroit, elem);
-
-	return NULL;
+	ArbreBinaire t = a;
+	ArbreBinaire dad = a;
+	while(true) {
+		if(t->val > elem) {
+			if(!estVide(t->filsGauche)) {
+				dad = t;
+				t = t->filsGauche;
+			}
+			else
+				return NULL;
+		}
+		if(t->val < elem) {
+			if(!estVide(t->filsDroit)) {
+				dad = t;
+				t = t->filsDroit;
+			}	
+		else
+			return NULL;
+		}
+		if(t->val == elem)
+			return dad;
+	}
 }
 
 

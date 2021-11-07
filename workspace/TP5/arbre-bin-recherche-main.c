@@ -36,7 +36,8 @@ int main(void){
 	afficheGRD_r(a);printf("\n");
 	printf("nombreDeNoeud(a)= %i\n",nombreDeNoeud(a));
 
-	printf("%i\n",hauteur(a));
+	a = pere(a,2);
+	afficheGRD_r(a);printf("\n");
 
 /*
 // 	a = supprimer_r(a,6);
