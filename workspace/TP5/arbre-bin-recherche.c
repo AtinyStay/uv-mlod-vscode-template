@@ -243,7 +243,16 @@ ArbreBinaire supprimer_r(ArbreBinaire a,Element x)
 	return NULL;
 }
 
-void detruire_r(ArbreBinaire a){
+void detruireElement(Element e) {
 
+}
+
+void detruire_r(ArbreBinaire a){
+	if(!estVide(a)) {
+		detruire_r(a->filsGauche);
+		detruire_r(a->filsDroit);
+		detruireElement(a->val);
+		free(a);
+	}
 }
 
