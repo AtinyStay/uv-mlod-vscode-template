@@ -118,20 +118,19 @@ int profondeur(ArbreBinaire a, Element e){
 
 // retourne la hauteur de l'arbre a
 int hauteur(ArbreBinaire a){
-	int h = 0;
 	if(estVide(a))
 		return 0;
 
 	if((estVide(a->filsGauche)) && (estVide(a->filsDroit)))
 		return 1;
-
-	if(!estVide(a)) {
-		hauteur(a->filsGauche);
-		hauteur(a->filsDroit);
-		printf("%i ",a->val);
-	}
-
-	return h;	
+	
+	//arbre de hauteur supérieure ou égale à 2
+	int hGauche = hauteur(a->filsGauche);
+	int hDroite = hauteur(a->filsDroit);
+	if(hGauche <= hDroite)
+		return hDroite+1;
+	else
+		return hGauche+1;	
 }
 
 // retourne le pere de elem dans l'arbre a ou NULL s'il n'existe pas
