@@ -108,8 +108,8 @@ int profondeur(ArbreBinaire a, Element e){
 				t = t->filsDroit;
 				p++;
 			}	
-		else
-			return -1;
+			else
+				return -1;
 		}
 		if(t->val == e)
 			return p;
