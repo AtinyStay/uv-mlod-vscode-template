@@ -85,23 +85,68 @@ int nombreDeNoeud(ArbreBinaire a){
 // retourne la profondeur du noeud ayant la valeur e dans a
 // retourne -1 si a est vide ou si e n'est pas dans a
 int profondeur(ArbreBinaire a, Element e){
-	int profondeur = 0;
 	if(estVide(a))
 		return -1;
-	if(a->val > e)
-		a->filsGauche = insere_r(a->filsGauche,e);
-	if(a->val < e)
-		a->filsDroit = insere_r(a->filsDroit,e);
-	
+
+	if(a->val == e)
+		return 1;
+
+	// (a != NULL) && (a->val !=e)
+	ArbreBinaire t = a;
+	int p = 1;
+	while(true) {
+		if(t->val > e) {
+			if(!estVide(t->filsGauche)) {
+				t = t->filsGauche;
+				p++;
+			}
+			else
+				return -1;
+		}
+		if(t->val < e) {
+			if(!estVide(t->filsDroit)) {
+				t = t->filsDroit;
+				p++;
+			}	
+		else
+			return -1;
+		}
+		if(t->val == e)
+			return p;
+	}
 }
 
 // retourne la hauteur de l'arbre a
 int hauteur(ArbreBinaire a){
-	return 0;
+	int h = 0;
+	if(estVide(a))
+		return 0;
+
+	if((estVide(a->filsGauche)) && (estVide(a->filsDroit)))
+		return 1;
+
+	if(!estVide(a)) {
+		hauteur(a->filsGauche);
+		hauteur(a->filsDroit);
+		printf("%i ",a->val);
+	}
+
+	return h;	
 }
 
 // retourne le pere de elem dans l'arbre a ou NULL s'il n'existe pas
 ArbreBinaire pere(ArbreBinaire a, Element elem){
+	if(estVide(a))
+		return NULL;
+	
+	if(a->val == elem)
+		return a;
+	
+	// (a != NULL) && (a->val !=e)
+	if(a->val > elem)
+		return recherche_r(a->filsGauche, elem);
+	if(a->val < elem)
+		return recherche_r(a->filsDroit, elem);
 
 	return NULL;
 }
@@ -134,21 +179,48 @@ void afficheGDR_r(ArbreBinaire a){
 // retourne le noeud dont la valeur est minimum dans l'arbre
 // Suppose que a est un arbre binaire de recherche sans doublons
 ArbreBinaire min(ArbreBinaire a){
-	return NULL;
+	if(estVide(a))
+		return NULL;
+
+	if(estVide(a->filsGauche))
+		return a;
+	
+	while(!estVide(a->filsGauche)) {
+		a = a->filsGauche;
+	}
+	return a;
 }
 
 // retourne le noeud dont la valeur est maximum dans l'arbre
 // Suppose que a est un arbre binaire de recherche sans doublons
 ArbreBinaire max(ArbreBinaire a){
-	return NULL;
+	if(estVide(a))
+		return NULL;
+	
+	if(estVide(a->filsDroit))
+		return a;
+	
+	while(!estVide(a->filsDroit)) {
+		a = a->filsDroit;
+	}
+	return a;
 }
 
 
 // retourne l'arbre dont la valeur de la racine est elem et NULL si elem n'existe dans a 
 // version récursive
 ArbreBinaire recherche_r(ArbreBinaire a, Element elem){
-
-	return NULL;
+	if(estVide(a))
+		return NULL;
+	
+	if(a->val == elem)
+		return a;
+	
+	// (a != NULL) && (a->val !=e)
+	if(a->val > elem)
+		return recherche_r(a->filsGauche, elem);
+	if(a->val < elem)
+		return recherche_r(a->filsDroit, elem);
 }
 
 
